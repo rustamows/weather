@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:weather/model/weather_models.dart';
+import 'package:weather/repository/weather_repository.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,6 +10,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
+  WeatherModel? weatherModel;
+  WeatherRepository repository = WeatherRepository();
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+ getData()async{
+  var weatherModel = await repository.getWeatherModel('osh');
+  setState(() {
+    this.weatherModel = weatherModel;
+  });
+ }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +58,7 @@ class _HomePage extends State<HomePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('     2Sunday, 19 May 2019 | 4:30PM'),
+                      Text('${DateTime.now()}'),
                       InkWell(
                         child: Row(
                           children: [
@@ -84,9 +99,12 @@ class _HomePage extends State<HomePage> {
                               Text('Sunny')
                             ],
                           ),
-                          Image.asset('temperature.png'),
+                          Text('${weatherModel?.main?.temp}C'),
                           Column(
-                            children: [Image.asset('temp.png')],
+                            children: [
+                              Text('${weatherModel?.main?.tempMax}'),
+                               Text('${weatherModel?.main?.tempMin}')
+                            ],
                           )
                         ],
                       ),
@@ -102,7 +120,7 @@ class _HomePage extends State<HomePage> {
                         children: [
                           Image.asset('water.png'),
                           Text(
-                            '49%',
+                            '${weatherModel?.main?.humidity}',
                           ),
                           Text('Huminity')
                         ],
@@ -110,14 +128,14 @@ class _HomePage extends State<HomePage> {
                       Column(
                         children: [
                           Image.asset('gogo.png'),
-                          Text('1,007mBar'),
+                          Text('${weatherModel?.main?.pressure}'),
                           Text('Pressure')
                         ],
                       ),
                       Column(
                         children: [
                           Image.asset('dodo.png'),
-                          Text('23 km/h'),
+                          Text('${weatherModel?.wind}'),
                           Text('Wind')
                         ],
                       ),
@@ -132,21 +150,21 @@ class _HomePage extends State<HomePage> {
                       Column(
                         children: [
                           Image.asset('botish.png'),
-                          Text('6:03 AM'),
+                          Text('${weatherModel?.sys?.sunrise}'),
                           Text('Sunrise')
                         ],
                       ),
                       Column(
                         children: [
                           Image.asset('chikish.png'),
-                          Text('7:05 PM'),
+                          Text('${weatherModel?.sys?.sunset}'),
                           Text('Sunset'),
                         ],
                       ),
                       Column(
                         children: [
                           Image.asset('kum.png'),
-                          Text('13h 1m'),
+                          Text('${weatherModel?.timezone}'),
                           Text('Daytime'),
                         ],
                       ),
