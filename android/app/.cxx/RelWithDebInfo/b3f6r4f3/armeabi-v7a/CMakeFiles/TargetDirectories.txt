@@ -1,0 +1,2 @@
+/Users/han/lesson/weather/android/app/.cxx/RelWithDebInfo/b3f6r4f3/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/han/lesson/weather/android/app/.cxx/RelWithDebInfo/b3f6r4f3/armeabi-v7a/CMakeFiles/rebuild_cache.dir
